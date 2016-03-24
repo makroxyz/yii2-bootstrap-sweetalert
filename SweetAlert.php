@@ -43,7 +43,7 @@ class SweetAlert extends Widget
     /**
      * @var int Auto close timer of the modal. Set in ms (milliseconds). default - 1,5 second
      */
-    public $timer = 1500;
+    public $timer = 0;
     /**
      * Plugin options
      * @var array
@@ -67,10 +67,8 @@ class SweetAlert extends Widget
     {
         $view = $this->getView();
         SweetAlertAsset::register($view);
-        if ($this->useSessionFlash) {
-            $js = 'sweetAlert(' . $this->getOptions() . ');';
-            $view->registerJs($js, $view::POS_END);
-        }
+        $js = "swal({$this->getOptions()});";
+        $view->registerJs($js);
     }
 
     /**
