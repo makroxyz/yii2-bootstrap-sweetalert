@@ -37,6 +37,21 @@ echo \makroxyz\sweetalert\SweetAlert::widget([
 ]);
 ```
 
+Overrid Confirm
+----------------
+SweetAlertAsset overrides javascript confirm dialog by default.
+If you want to keep default edit your config.php
+
+```php
+'assetManager' => [
+    'bundles' => [
+        'makroxyz\sweetalert\SweetAlertAsset' => [
+            'overrideConfirm' => false
+        ]
+    ]
+]
+```
+
 
 Alert Options 
 ----------------

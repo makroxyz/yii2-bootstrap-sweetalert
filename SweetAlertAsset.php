@@ -2,7 +2,9 @@
 
 namespace makroxyz\sweetalert;
 
+use Yii;
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * Class SweetAlertAsset
@@ -21,7 +23,7 @@ class SweetAlertAsset extends AssetBundle
      * specified in one of the following formats:
      */
     public $js = [
-        'sweet-alert.min.js',
+        ['sweet-alert.js', 'position' => View::POS_HEAD]
     ];
 
     /**
@@ -31,5 +33,41 @@ class SweetAlertAsset extends AssetBundle
     public $css = [
         'sweet-alert.css'
     ];
+    
+    public $depends = [
+        'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
+    
+    public $overrideConfirm = true;
+    
+    public function init()
+    {
+        parent::init();
+        if ($this->overrideConfirm) {
+            self::overrideConfirm();
+        }
+    }
+
+    public static function overrideConfirm()
+    {
+        Yii::$app->view->registerJs('
+            yii.confirm = function (message, ok, cancel) {
+                swal({
+                    title: message,
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn-primary",
+                },
+                function(isConfirm){   
+                    if (isConfirm) {
+                        !ok || ok();
+                    } else {
+                        !cancel || cancel();
+                    }
+                });
+            }
+        ');
+    }
 
 }
