@@ -56,8 +56,7 @@ class SweetAlertAsset extends AssetBundle
                 swal({
                     title: message,
                     type: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn-primary",
+                    showCancelButton: true
                 },
                 function(isConfirm){   
                     if (isConfirm) {
